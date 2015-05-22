@@ -1,8 +1,14 @@
 {
+	"name": "curse/smite-api",
+	"type": "library",
+	"description": "Easy access to the Hi-Rez Studios API for Smite",
+	"homepage": "https://github.com/CurseStaff/SmitePHP",
+	"license": "LGPLv3",
 	"autoload": {
 		"psr-4": {"Smite\\": "src/"}
 	},
 	"require": {
+		"php": ">=5.4.0",
 		"guzzlehttp/guzzle": "^5.3"
 	},
 	"require-dev": {
