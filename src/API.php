@@ -1,6 +1,8 @@
 <?php
 namespace Smite;
 
+use Exception;
+
 class API {
 	/**
 	 * IETF language codes for smite's internal language codes
@@ -183,8 +185,12 @@ class API {
 	 * Set the language code for API calls.
 	 * 
 	 * @param $languageCode
+	 * @throws Exception
 	 */
 	public function useLanguage($languageCode) {
+		if (!isset(self::$languageCodeMap[$languageCode])) {
+			throw new Exception("Not a supported language code: $languageCode");
+		}
 		$this->languageCode = self::$languageCodeMap[$languageCode];
 	}
 
