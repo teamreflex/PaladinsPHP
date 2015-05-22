@@ -1,5 +1,6 @@
 <?php
 namespace Smite;
+
 class API {
 	private $returnArrays = false;
 
@@ -42,7 +43,12 @@ class API {
 	}
 
 	public function request() {
-
+		$args = func_get_args();
+		$method = substr($args[0], 1);
+		$signature = $this->createSignature($method);
+		if ($this->checkSession()) {
+			$session = $this->createSession();
+		}
 	}
 
 	/**
@@ -56,7 +62,7 @@ class API {
 	}
 
 	private function checkSession() {
-
+		return time() - $this->sessionTimestamp > 900;
 	}
 
 	private function createSession() {
