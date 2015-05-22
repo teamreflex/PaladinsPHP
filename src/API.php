@@ -2,6 +2,10 @@
 namespace Smite;
 
 class API {
+	/**
+	 * IETF language codes for smite's internal language codes
+	 * @var array
+	 */
 	private static $languageCodeMap = [
 		1 => 'en',
 		2 => 'de',
@@ -14,6 +18,10 @@ class API {
 		13 => 'tr',
 	];
 
+	/**
+	 * String mapping for Smite queue types
+	 * @var array
+	 */
 	private static $queueMap = [
 		423 => 'Conquest5v5',
 		424 => 'NoviceQueue',
@@ -36,16 +44,20 @@ class API {
 		465 => 'MOTD2'
 	];
 
+	/**
+	 * String mapping for ranked tiers to Smite's internal tier ID
+	 * @var array
+	 */
 	private static $tierMap = [
-		1 => 'Bronze5',
-		2 => 'Bronze4',
-		3 => 'Bronze3',
-		4 => 'Bronze2',
-		5 => 'Bronze1',
-		6 => 'Silver5',
-		7 => 'Silver4',
-		8 => 'Silver3',
-		9 => 'Silver2',
+		 1 => 'Bronze5',
+		 2 => 'Bronze4',
+		 3 => 'Bronze3',
+		 4 => 'Bronze2',
+		 5 => 'Bronze1',
+		 6 => 'Silver5',
+		 7 => 'Silver4',
+		 8 => 'Silver3',
+		 9 => 'Silver2',
 		10 => 'Silver1',
 		11 => 'Gold5',
 		12 => 'Gold4',
@@ -65,8 +77,16 @@ class API {
 		26 => 'Masters1'
 	];
 
+	/**
+	 * When true return assoc arrays instead of stdObject
+	 * @var bool
+	 */
 	private $returnArrays = false;
 
+	/**
+	 * Preferred language to return [defaults to english]
+	 * @var int
+	 */
 	private $languageCode = 1;
 
 	private $devId;
@@ -152,6 +172,10 @@ class API {
 		return $body->session_id;
 	}
 
+	/**
+	 * Get a UTC timestamp
+	 * @return string timestamp like 20120927183145
+	 */
 	private static function createTimestamp() {
 		$datetime = new \DateTime('Now', \DateTimeZone::UTC);
 		return $datetime->format('YmdHis');
