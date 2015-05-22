@@ -77,6 +77,8 @@ class API {
 
 	private $guzzleClient;
 
+	private $session;
+
 	private static $smiteAPIUrl = 'http://api.smitegame.com/smiteapi.svc';
 
 	public function getDevId() {
@@ -110,16 +112,18 @@ class API {
 	}
 
 	public function useLanguage($languageCode) {
-		// TODO: Write language mapping function
+
 	}
 
 	public function request() {
+		if ($this->sessionIsExpired() || !$this->session) {
+			$this->session = $this->createSession();
+		}
+
 		$args = func_get_args();
 		$method = substr($args[0], 1);
 		$signature = $this->createSignature($method);
-		if ($this->checkSession()) {
-			$session = $this->createSession();
-		}
+
 		// TODO:: Finish Request implementation.
 	}
 
@@ -131,7 +135,12 @@ class API {
 		return md5($this->getDevId().$method.$this->getAuthKey().self::createTimestamp());
 	}
 
-	private function checkSession() {
+
+	/**
+	 * Check to see if our session has expired.
+	 * @return bool
+	 */
+	private function sessionIsExpired() {
 		return time() - $this->sessionTimestamp > 900;
 	}
 
