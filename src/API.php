@@ -5,6 +5,16 @@ use Exception;
 
 class API {
 	/**
+	 * List of methods that need a language code appended
+	 * @var array
+	 */
+	private static $localizedData = [
+		'getgods',
+		'getgodrecommendeditems',
+		'getitems',
+	];
+
+	/**
 	 * IETF language codes for smite's internal language codes
 	 * @var array
 	 */
@@ -125,7 +135,7 @@ class API {
 	 * Smite API URL
 	 * @var string
 	 */
-	private static $smiteAPIUrl = 'http://api.smitegame.com/smiteapi.svc';
+	private static $smiteAPIUrl = 'http://api.smitegame.com/smiteapi.svc/';
 
 	/**
 	 * Getter method for Dev Id
@@ -194,16 +204,79 @@ class API {
 		$this->languageCode = self::$languageCodeMap[$languageCode];
 	}
 
-	public function request() {
-		if ($this->sessionIsExpired() || !$this->session) {
-			$this->session = $this->createSession();
+	/**
+	 * Make a request to the Smite API
+	 *
+	 * @param string $method    name of Smite api endpoint with or without leading slash
+	 * @param mixed $param1,... optional additional params in order as needed by the Smite API
+	 * @throws Exception when Smite API returns a non-200 response
+	 */
+	public function request($method) {
+		// strip leading slash, if present
+		if (substr($method, 0, 1) == '/') {
+			$method = substr($method, 1);
 		}
 
-		$args = func_get_args();
-		$method = substr($args[0], 1);
-		$signature = $this->createSignature($method);
+		// check validity of session and create if needed
+		if ($this->sessionRequiredFor($method) && (!$this->session || $this->sessionIsExpired())) {
+			$this->createSession();
+		}
 
-		// TODO:: Finish Request implementation.
+		// get all extra args
+		$args = func_get_args();
+		array_shift($args); // dump $method off the front
+
+		$args = $this->applyMaps($args);
+		$url = $this->buildRequestUrl($method, $args);
+
+		return json_decode($this->sendRequest($url), $this->returnArrays);
+	}
+
+	public function sessionRequiredFor($method) {
+		return !($method == 'ping' || $method == 'createsession');
+	}
+
+	/**
+	 * @todo implement by mapping strings to int with above static arrays
+	 */
+	private function applyMaps($arr) {
+		return $arr;
+	}
+
+	private function buildRequestUrl($method, $args = []) {
+		// automatically add the language code for requests that need it
+		if (in_array($method, self::$localizedData)) {
+			$args[] = $this->languageCode;
+		}
+
+		if ($method != 'ping') {
+			$timestamp = self::createTimestamp();
+			$signature = $this->createSignature($method, $timestamp);
+
+			$stdArgs = [$this->getDevId(), $signature];
+			if ($this->sessionRequiredFor($method)) {
+				$stdArgs[] = $this->session;
+			}
+			$stdArgs[] = $timestamp;
+			$args = array_merge($stdArgs, $args);
+		}
+
+		// base url for api endpoint, always json data
+		$url = self::$smiteAPIUrl . $method . 'json';
+
+		// put the main URL at the beginning of our args
+		array_unshift($args, $url);
+		return implode('/', $args);
+	}
+
+	private function sendRequest($url) {
+		$result = $this->guzzleClient->get($url);
+		if ($result->getStatusCode() != 200) {
+			$respCode = $result->getStatusCode();
+			$respBody = $result->getBody();
+			throw new Exception("Smite API returned $respCode: ".$respBody);
+		}
+		return $result->getBody();
 	}
 
 	/**
@@ -211,8 +284,8 @@ class API {
 	 * @param   string Pre-stripped method name
 	 * @return  string
 	 */
-	private function createSignature($method) {
-		return md5($this->getDevId().$method.$this->getAuthKey().self::createTimestamp());
+	private function createSignature($method, $timestamp) {
+		return md5($this->getDevId().$method.$this->getAuthKey().$timestamp);
 	}
 
 
@@ -227,20 +300,12 @@ class API {
 
 	/**
 	 * Perform a create session call to the Smite API.
-	 *
-	 * @return string   Session ID
-	 * @throws \Exception 
 	 */
 	private function createSession() {
-		$signature = $this->createSignature('createsession');
-		$url = self::$smiteAPIUrl."/createsessionjson/".$this->getDevId()."/$signature/".self::createTimestamp();
-		try {
-			$response = $this->guzzleClient->get($url);
-		} catch (\Exception $e) {
-			throw new \Exception("We were unable to create a session.");
-		}
+		$url = $this->buildRequestUrl('createsession');
+		$response = $this->guzzleClient->get($url);
 		$body = $response->getBody();
-		return $body->session_id;
+		$this->session = $body->session_id;
 	}
 
 	/**
@@ -248,7 +313,7 @@ class API {
 	 * @return string timestamp like 20120927183145
 	 */
 	private static function createTimestamp() {
-		$datetime = new \DateTime('Now', \DateTimeZone::UTC);
+		$datetime = new \DateTime('Now', new \DateTimeZone('UTC'));
 		return $datetime->format('YmdHis');
 	}
 }
