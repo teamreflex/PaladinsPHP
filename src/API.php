@@ -2,9 +2,71 @@
 namespace Smite;
 
 class API {
+	private static $languageCodeMap = [
+		1 => 'en',
+		2 => 'de',
+		3 => 'fr',
+		7 => 'es',
+		9 => 'es-419',
+		10 => 'pt',
+		11 => 'ru',
+		12 => 'pl',
+		13 => 'tr',
+	];
+
+	private static $queueMap = [
+		423 => 'Conquest5v5',
+		424 => 'NoviceQueue',
+		426 => 'Conquest',
+		427 => 'Practice',
+		429 => 'ConquestChallenge',
+		430 => 'ConquestRanked',
+		433 => 'Domination',
+		434 => 'MOTD1',
+		435 => 'Arena',
+		438 => 'ArenaChallenge',
+		439 => 'DominationChallenge',
+		440 => 'JoustLeague',
+		441 => 'JoustChallenge',
+		445 => 'Assault',
+		446 => 'AssaultChallenge',
+		448 => 'Joust3v3',
+		451 => 'ConquestLeague',
+		452 => 'ArenaLeague',
+		465 => 'MOTD2'
+	];
+
+	private static $tierMap = [
+		1 => 'Bronze5',
+		2 => 'Bronze4',
+		3 => 'Bronze3',
+		4 => 'Bronze2',
+		5 => 'Bronze1',
+		6 => 'Silver5',
+		7 => 'Silver4',
+		8 => 'Silver3',
+		9 => 'Silver2',
+		10 => 'Silver1',
+		11 => 'Gold5',
+		12 => 'Gold4',
+		13 => 'Gold3',
+		14 => 'Gold2',
+		15 => 'Gold1',
+		16 => 'Platinum5',
+		17 => 'Platinum4',
+		18 => 'Platinum3',
+		19 => 'Platinum2',
+		20 => 'Platinum1',
+		21 => 'Diamond5',
+		22 => 'Diamond4',
+		23 => 'Diamond3',
+		24 => 'Diamond2',
+		25 => 'Diamond1',
+		26 => 'Masters1'
+	];
+
 	private $returnArrays = false;
 
-	// TODO: Map Language Code
 	private $languageCode = 1;
 
 	private $devId;
