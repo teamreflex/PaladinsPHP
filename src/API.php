@@ -172,15 +172,20 @@ class API {
 
 	/**
 	 * Determine format for when we JSON Decode API information.
-	 * 
+	 *
 	 * @param boolean
 	 */
 	public function preferFormat($format) {
 		$this->returnArrays = strtolower($format) == 'array';
 	}
 
+	/**
+	 * Set the language code for API calls.
+	 * 
+	 * @param $languageCode
+	 */
 	public function useLanguage($languageCode) {
-
+		$this->languageCode = self::$languageCodeMap[$languageCode];
 	}
 
 	public function request() {
