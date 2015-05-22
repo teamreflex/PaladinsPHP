@@ -17,6 +17,16 @@ class API {
 	];
 
 	/**
+	 * List of methods that need to be compared to queue and tier mapping variables.
+	 */
+	private static $queueTierData = [
+		'getmatchidsbyqueue',
+		'getleagueleaderboard',
+		'getleagueseasons',
+		'getqueuestats',
+	];
+
+	/**
 	 * IETF language codes for smite's internal language codes
 	 * @var array
 	 */
@@ -232,7 +242,11 @@ class API {
 		$args = func_get_args();
 		array_shift($args); // dump $method off the front
 
-		$args = $this->applyMaps($args);
+		// Check to see if the method needs to have any data from the mapping variables.
+		if (in_array($method, self::$queueTierData)) {
+			$args = $this->applyMaps($method, $args);
+		}
+
 		$url = $this->buildRequestUrl($method, $args);
 
 		return json_decode($this->sendRequest($url), $this->returnArrays);
@@ -246,6 +260,13 @@ class API {
 	 * @todo implement by mapping strings to int with above static arrays
 	 */
 	private function applyMaps($arr) {
+		foreach ($arr as $call) {
+			if (array_key_exists($call, self::$queueMap)) {
+				$call = $queueMap[$call];
+			} else if (array_key_exists($call, self::$tierMap)) {
+				$call = $tierMap[$call];
+			}
+		}
 		return $arr;
 	}
 
