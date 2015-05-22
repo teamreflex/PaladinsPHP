@@ -257,7 +257,10 @@ class API {
 	}
 
 	/**
-	 * @todo implement by mapping strings to int with above static arrays
+	 * Loop over a set of arguements and apply mapping values if they are either a queue or tier.
+	 *
+	 * @param array $arr 	arguements for the URL builder.
+	 * @return array $arr 	updated arguments where mappings have been applied.
 	 */
 	private function applyMaps($arr) {
 		foreach ($arr as $call) {
