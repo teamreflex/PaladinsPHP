@@ -13,12 +13,18 @@ class API {
 
 	private $sessionTimestamp;
 
+	private $guzzleClient;
+
 	public function getDevId() {
 		return $this->devId;
 	}
 
 	public function getAuthKey() {
 		return $this->authKey;
+	}
+
+	public function getGuzzleClient() {
+		return $this->guzzleClient;
 	}
 
 	public function __construct ($devId, $authKey){
@@ -32,6 +38,7 @@ class API {
 
 		$this->devId = $devId;
 		$this->authKey = $authKey;
+		$this->guzzleClient = new \GuzzleHttp\Client();
 	}
 
 	public function preferFormat($format) {
