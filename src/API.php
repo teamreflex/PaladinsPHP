@@ -1,7 +1,9 @@
 <?php
 namespace Smite;
 
-use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\TransferException;
+use InvalidArgumentException;
 
 class API {
 	/**
@@ -164,22 +166,26 @@ class API {
 	/**
 	 * Main Constructor for Smite API Class
 	 *
-	 * @param $devId
-	 * @param $authKey
-	 * @throws \Exception
+	 * @param int $devId
+	 * @param string $authKey
+	 * @param Client $guzzle [optional]
+	 * @throws InvalidArgumentException
 	 */
-	public function __construct ($devId, $authKey){
+	public function __construct ($devId, $authKey, Client $guzzle = null){
 		if (!$devId) {
-			throw new \Exception("You need to pass a Dev Id");
+			throw new InvalidArgumentException("You need to pass a Dev Id");
 		}
-
 		if (!$authKey) {
-			throw new \Exception("You need to pass an Auth Key");
+			throw new InvalidArgumentException("You need to pass an Auth Key");
 		}
 
 		$this->devId = $devId;
 		$this->authKey = $authKey;
-		$this->guzzleClient = new \GuzzleHttp\Client();
+		if (is_null($guzzle)) {
+			$this->guzzleClient = new Client();
+		} else {
+			$this->guzzleClient = $guzzle;
+		}
 	}
 
 	/**
@@ -195,11 +201,11 @@ class API {
 	 * Set the language code for API calls.
 	 * 
 	 * @param $languageCode
-	 * @throws Exception
+	 * @throws InvalidArgumentException
 	 */
 	public function useLanguage($languageCode) {
 		if (!isset(self::$languageCodeMap[$languageCode])) {
-			throw new Exception("Not a supported language code: $languageCode");
+			throw new InvalidArgumentException("Not a supported language code: $languageCode");
 		}
 		$this->languageCode = self::$languageCodeMap[$languageCode];
 	}
@@ -270,7 +276,12 @@ class API {
 	}
 
 	private function sendRequest($url) {
-		$result = $this->guzzleClient->get($url);
+		try {
+			$result = $this->guzzleClient->get($url);
+		} catch (TransferException $e) {
+			// todo decide on a better way to handle errors
+			return '';
+		}
 		if ($result->getStatusCode() != 200) {
 			$respCode = $result->getStatusCode();
 			$respBody = $result->getBody();
@@ -305,7 +316,8 @@ class API {
 		$url = $this->buildRequestUrl('createsession');
 		$response = $this->guzzleClient->get($url);
 		$body = $response->getBody();
-		$this->session = $body->session_id;
+		// TODO: decode $body and use session_id data key
+		$this->session = $body;
 	}
 
 	/**
