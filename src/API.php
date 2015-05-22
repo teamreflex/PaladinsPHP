@@ -15,6 +15,8 @@ class API {
 
 	private $guzzleClient;
 
+	private static $smiteAPIUrl = 'http://api.smitegame.com/smiteapi.svc';
+
 	public function getDevId() {
 		return $this->devId;
 	}
@@ -33,7 +35,7 @@ class API {
 		}
 
 		if (!$authKey) {
-			throw new \Exception("YOu need to pass an Auth Key");
+			throw new \Exception("You need to pass an Auth Key");
 		}
 
 		$this->devId = $devId;
@@ -56,6 +58,7 @@ class API {
 		if ($this->checkSession()) {
 			$session = $this->createSession();
 		}
+		// TODO:: Finish Request implementation.
 	}
 
 	/**
@@ -63,9 +66,7 @@ class API {
 	 * @return	string
 	 */
 	private function createSignature($method) {
-		$datetime = new \DateTime('Now', \DateTimeZone::UTC);
-		$timestamp = $datetime->format('YmdHis');
-		return md5($this->getDevId().$method.$this->getAuthKey().$timestamp);
+		return md5($this->getDevId().$method.$this->getAuthKey().self::createTimestamp());
 	}
 
 	private function checkSession() {
@@ -74,5 +75,10 @@ class API {
 
 	private function createSession() {
 
+	}
+
+	private static function createTimestamp() {
+		$datetime = new \DateTime('Now', \DateTimeZone::UTC);
+		return $datetime->format('YmdHis');
 	}
 }
