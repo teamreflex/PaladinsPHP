@@ -1,0 +1,8 @@
+{
+	"autoload": {
+		"psr-4": {"Smite\\": "src/"}
+	},
+	"require": {
+		"curl/curl": "^1.2"
+	}
+}
