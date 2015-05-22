@@ -229,11 +229,16 @@ class API {
 	 * Perform a create session call to the Smite API.
 	 *
 	 * @return string   Session ID
+	 * @throws \Exception 
 	 */
 	private function createSession() {
 		$signature = $this->createSignature('createsession');
 		$url = self::$smiteAPIUrl."/createsessionjson/".$this->getDevId()."/$signature/".self::createTimestamp();
-		$response = $this->guzzleClient->get($url);
+		try {
+			$response = $this->guzzleClient->get($url);
+		} catch (\Exception $e) {
+			throw new \Exception("We were unable to create a session.");
+		}
 		$body = $response->getBody();
 		return $body->session_id;
 	}
