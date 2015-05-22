@@ -49,32 +49,32 @@ class API {
 	 * @var array
 	 */
 	private static $tierMap = [
-		 1 => 'Bronze5',
-		 2 => 'Bronze4',
-		 3 => 'Bronze3',
-		 4 => 'Bronze2',
-		 5 => 'Bronze1',
-		 6 => 'Silver5',
-		 7 => 'Silver4',
-		 8 => 'Silver3',
-		 9 => 'Silver2',
-		10 => 'Silver1',
-		11 => 'Gold5',
-		12 => 'Gold4',
-		13 => 'Gold3',
-		14 => 'Gold2',
-		15 => 'Gold1',
-		16 => 'Platinum5',
-		17 => 'Platinum4',
-		18 => 'Platinum3',
-		19 => 'Platinum2',
-		20 => 'Platinum1',
-		21 => 'Diamond5',
-		22 => 'Diamond4',
-		23 => 'Diamond3',
-		24 => 'Diamond2',
-		25 => 'Diamond1',
-		26 => 'Masters1'
+		'Bronze5' => 1,
+		'Bronze4' => 2,
+		'Bronze3' => 3,
+		'Bronze2' => 4,
+		'Bronze1' => 5,
+		'Silver5' => 6,
+		'Silver4' => 7,
+		'Silver3' => 8,
+		'Silver2' => 9,
+		'Silver1' => 10,
+		'Gold5' => 11,
+		'Gold4' => 12,
+		'Gold3' => 13,
+		'Gold2' => 14,
+		'Gold1' => 15,
+		'Platinum5' => 16,
+		'Platinum4' => 17,
+		'Platinum3' => 18,
+		'Platinum2' => 19,
+		'Platinum1' => 20,
+		'Diamond5' => 21,
+		'Diamond4' => 22,
+		'Diamond3' => 23,
+		'Diamond2' => 24,
+		'Diamond1' => 25,
+		'Masters1' => 26,
 	];
 
 	/**
@@ -222,7 +222,7 @@ class API {
 	/**
 	 * Perform a create session call to the Smite API.
 	 *
-	 * @return string	Session ID
+	 * @return string   Session ID
 	 */
 	private function createSession() {
 		$signature = $this->createSignature('createsession');
