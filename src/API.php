@@ -316,8 +316,8 @@ class API {
 		$url = $this->buildRequestUrl('createsession');
 		$response = $this->guzzleClient->get($url);
 		$body = $response->getBody();
-		// TODO: decode $body and use session_id data key
-		$this->session = $body;
+		$body = json_decode($body);
+		$this->session = $body->session_id;
 	}
 
 	/**
