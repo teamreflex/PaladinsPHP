@@ -89,30 +89,73 @@ class API {
 	 */
 	private $languageCode = 1;
 
+	/**
+	 * Dev Id from Smite API
+	 * @var int
+	 */
 	private $devId;
 
+	/**
+	 * Auth Key from Smite API
+	 * @var string
+	 */
 	private $authKey;
 
+	/**
+	 * Timestamp when session was created
+	 * @var int
+	 */
 	private $sessionTimestamp;
 
+	/**
+	 * Guzzle Client
+	 * @var \GuzzleHttp\Client
+	 */
 	private $guzzleClient;
 
+	/**
+	 * Custom session from Smite API.
+	 * @var string
+	 */
 	private $session;
 
+	/**
+	 * Smite API URL
+	 * @var string
+	 */
 	private static $smiteAPIUrl = 'http://api.smitegame.com/smiteapi.svc';
 
+	/**
+	 * Getter method for Dev Id
+	 * @return int
+	 */
 	public function getDevId() {
 		return $this->devId;
 	}
 
+	/**
+	 * Getter method for Auth Key
+	 * @return string
+	 */
 	public function getAuthKey() {
 		return $this->authKey;
 	}
 
+	/**
+	 * Getter method for Guzzle Client
+	 * @return \GuzzleHttp\Client
+	 */
 	public function getGuzzleClient() {
 		return $this->guzzleClient;
 	}
 
+	/**
+	 * Main Constructor for Smite API Class
+	 *
+	 * @param $devId
+	 * @param $authKey
+	 * @throws \Exception
+	 */
 	public function __construct ($devId, $authKey){
 		if (!$devId) {
 			throw new \Exception("You need to pass a Dev Id");
@@ -127,6 +170,11 @@ class API {
 		$this->guzzleClient = new \GuzzleHttp\Client();
 	}
 
+	/**
+	 * Determine format for when we JSON Decode API information.
+	 * 
+	 * @param boolean
+	 */
 	public function preferFormat($format) {
 		$this->returnArrays = strtolower($format) == 'array';
 	}
@@ -148,6 +196,8 @@ class API {
 	}
 
 	/**
+	 * Create unique signature key required by the Smite API.
+	 *
 	 * @param	string Pre-stripped method name
 	 * @return	string
 	 */
@@ -158,12 +208,18 @@ class API {
 
 	/**
 	 * Check to see if our session has expired.
+	 *
 	 * @return bool
 	 */
 	private function sessionIsExpired() {
 		return time() - $this->sessionTimestamp > 900;
 	}
 
+	/**
+	 * Perform a create session call to the Smite API.
+	 *
+	 * @return string	Session ID
+	 */
 	private function createSession() {
 		$signature = $this->createSignature('createsession');
 		$url = self::$smiteAPIUrl."/createsessionjson/".$this->getDevId()."/$signature/".self::createTimestamp();
