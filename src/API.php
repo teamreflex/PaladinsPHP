@@ -7,15 +7,15 @@ class API {
 	 * @var array
 	 */
 	private static $languageCodeMap = [
-		1 => 'en',
-		2 => 'de',
-		3 => 'fr',
-		7 => 'es',
-		9 => 'es-419',
-		10 => 'pt',
-		11 => 'ru',
-		12 => 'pl',
-		13 => 'tr',
+		'en' => 1,
+		'de' => 2,
+		'fr' => 3,
+		'es' => 7,
+		'es-419' => 9,
+		'pt' => 10,
+		'ru' => 11,
+		'pl' => 12,
+		'tr' => 13,
 	];
 
 	/**
@@ -23,25 +23,25 @@ class API {
 	 * @var array
 	 */
 	private static $queueMap = [
-		423 => 'Conquest5v5',
-		424 => 'NoviceQueue',
-		426 => 'Conquest',
-		427 => 'Practice',
-		429 => 'ConquestChallenge',
-		430 => 'ConquestRanked',
-		433 => 'Domination',
-		434 => 'MOTD1',
-		435 => 'Arena',
-		438 => 'ArenaChallenge',
-		439 => 'DominationChallenge',
-		440 => 'JoustLeague',
-		441 => 'JoustChallenge',
-		445 => 'Assault',
-		446 => 'AssaultChallenge',
-		448 => 'Joust3v3',
-		451 => 'ConquestLeague',
-		452 => 'ArenaLeague',
-		465 => 'MOTD2'
+		'Conquest5v5' => 423,
+		'NoviceQueue' => 424,
+		'Conquest' => 426,
+		'Practice' => 427,
+		'ConquestChallenge' => 429,
+		'ConquestRanked' => 430,
+		'Domination' => 433,
+		'MOTD1' => 434,
+		'Arena' => 435,
+		'ArenaChallenge' => 438,
+		'DominationChallenge' => 439,
+		'JoustLeague' => 440,
+		'JoustChallenge' => 441,
+		'Assault' => 445,
+		'AssaultChallenge' => 446,
+		'Joust3v3' => 448,
+		'ConquestLeague' => 451,
+		'ArenaLeague' => 452,
+		'MOTD2' => 465,
 	];
 
 	/**
@@ -202,9 +202,8 @@ class API {
 
 	/**
 	 * Create unique signature key required by the Smite API.
-	 *
-	 * @param	string Pre-stripped method name
-	 * @return	string
+	 * @param   string Pre-stripped method name
+	 * @return  string
 	 */
 	private function createSignature($method) {
 		return md5($this->getDevId().$method.$this->getAuthKey().self::createTimestamp());
