@@ -74,7 +74,11 @@ class API {
 	}
 
 	private function createSession() {
-
+		$signature = $this->createSignature('createsession');
+		$url = self::$smiteAPIUrl."/createsessionjson/".$this->getDevId()."/$signature/".self::createTimestamp();
+		$response = $this->guzzleClient->get($url);
+		$body = $response->getBody();
+		return $body->session_id;
 	}
 
 	private static function createTimestamp() {
