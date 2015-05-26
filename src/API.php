@@ -18,6 +18,7 @@ class API {
 
 	/**
 	 * List of methods that need to be compared to queue and tier mapping variables.
+	 * @var array
 	 */
 	private static $queueTierData = [
 		'getmatchidsbyqueue',
@@ -342,6 +343,7 @@ class API {
 		$body = $response->getBody();
 		$body = json_decode($body);
 		$this->session = $body->session_id;
+		$this->sessionTimestamp = time();
 	}
 
 	/**

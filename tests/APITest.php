@@ -135,19 +135,23 @@ class APITest extends \PHPUnit_Framework_TestCase
      */
     public function testUseLanguage()
     {
-        $this->alwaysGetsData(200, '{}');
+        // pre-seed session data
+        $this->getsData(200, '{"session_id": "abcd"}');
 
+        $this->getsData(200, '{}');
         // test english as default (lang code 1)
         $this->object->request('getgods');
         $this->assertStringEndsWith('/1',
             $this->requestHistory->getLastRequest()->getUrl());
 
+        $this->getsData(200, '{}');
         // try russian (lang code 11)
         $this->object->useLanguage('ru');
         $this->object->request('getgods');
         $this->assertStringEndsWith('/11',
             $this->requestHistory->getLastRequest()->getUrl());
 
+        $this->getsData(200, '{}');
         // try latin american spanish (lang code 9)
         $this->object->useLanguage('es-419');
         $this->object->request('getgods');

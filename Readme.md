@@ -12,6 +12,10 @@ A DevID and AuthKey are required in order to interact with the SMITE API.
 
 To request a Developer ID and Authorization Key from Hi-Rez Studios, submit [this form](https://fs12.formsite.com/HiRez/form48/secure_index.html).
 
+## Requirements
+
+* PHP 5.4 or greater
+
 ## Installation
 
 ```shell
@@ -46,7 +50,7 @@ $ladderData = $api->request('/getleagueleaderboard', 'Conquest5v5', 'Silver3', 4
 2. `git clone`
 3. `composer install`
 4. Hack
-5. Confirm (and write new) passing tests: `vendor/bin/phpunit tests`
+5. Confirm (and write new) passing tests: `vendor/bin/phpunit`
 6. Submit pull request
 
 ### Development Todo
@@ -62,4 +66,4 @@ $ladderData = $api->request('/getleagueleaderboard', 'Conquest5v5', 'Silver3', 4
 
 Copyright 2015 Curse, Inc.
 
-Free for you to use under LGPLv3. See [LICENSE](LICENSE) for an abundance words.
+Free for you to use under LGPLv3. See [LICENSE](LICENSE) for an abundance of words.
