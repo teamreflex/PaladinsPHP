@@ -265,9 +265,9 @@ class API {
 	private function applyMaps($arr) {
 		foreach ($arr as $call) {
 			if (array_key_exists($call, self::$queueMap)) {
-				$call = $queueMap[$call];
+				$call = self::$queueMap[$call];
 			} else if (array_key_exists($call, self::$tierMap)) {
-				$call = $tierMap[$call];
+				$call = self::$tierMap[$call];
 			}
 		}
 		return $arr;
