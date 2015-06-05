@@ -2,7 +2,7 @@
 
 A simple object-oriented approach to data in the Smite API (a game from Hi-Rez Studios).
 
-For use within WordPress, consider using the [WP plugin from Hi-Rez](https://github.com/hirezstudios/smite-api-wp).
+For use within WordPress, consider using the [official WP plugin from Hi-Rez](https://github.com/hirezstudios/smite-api-wp).
 
 For more information about the SMITE API, check out the [official API documentation](https://docs.google.com/document/d/1OFS-3ocSx-1Rvg4afAnEHlT3917MAK_6eJTR6rzr-BM/).
 
@@ -29,11 +29,11 @@ $ composer require curse/smite-api
 $api = new Smite\API(DEV_ID, AUTH_KEY);
 
 // returns objects by default
-$api->preferFormat('array');
+$api->preferredFormat('array');
 // will now return assoc arrays
 
 // returns english language gods and item names by default
-$api->useLanguage('es');
+$api->preferredLanguage('es');
 // use IETF language tag to select language
 // (latin america becomes es-419)
 
