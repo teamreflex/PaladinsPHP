@@ -222,7 +222,6 @@ class Request {
 
 	/**
 	 * Sends the request to the remote
-	 * @throws GuzzleHttp\Exception\TransferException
 	 * @throws Smite\ApiException
 	 */
 	public function send() {
@@ -236,8 +235,7 @@ class Request {
 		try {
 			$result = $this->api->getGuzzleClient()->get($this->url);
 		} catch (TransferException $e) {
-			// todo decide on a better way to handle errors
-			return '';
+			throw new ApiException($e->getMessage(), $e->getCode(), $e);
 		}
 		if ($result->getStatusCode() != 200) {
 			$respCode = $result->getStatusCode();

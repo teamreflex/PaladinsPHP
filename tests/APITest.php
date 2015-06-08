@@ -187,6 +187,7 @@ class APITest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Smite\API::request
+	 * @expectedException Smite\ApiException
 	 */
 	public function testInvalidServerResponses()
 	{
@@ -196,12 +197,8 @@ class APITest extends \PHPUnit_Framework_TestCase
 		$this->assertNull($data);
 
 		$this->getsData(404, '{}');
-		$data = $this->object->request('/ping');
-		$this->assertNull($data);
-
-		$this->getsData(500, '{}');
-		$data = $this->object->request('/ping');
-		$this->assertNull($data);
+		$this->object->request('/ping');
+		// throws ApiException
 	}
 
 	/**
