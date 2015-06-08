@@ -163,4 +163,19 @@ class API {
 
 		return $request->send();
 	}
+
+	/**
+	 * Make a request to the Smite API
+	 * allows calling $api->getplayer($playername)
+	 * instead of $api->request('getplayer', $playername)
+	 *
+	 * @param string $method name of method that was called
+	 * @param array $params  optional params, in order as needed by the Smite API
+	 * @throws ApiException  when Smite API returns a non-200 response
+	 */
+	public function __call($method, $params) {
+		// push method onto args as first
+		array_unshift($params, strtolower($method));
+		return call_user_func_array([$this, 'request'], $params);
+	}
 }

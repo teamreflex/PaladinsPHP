@@ -202,10 +202,22 @@ class APITest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @covers Smite\API::__call
+	 */
+	public function testCall() {
+		$this->alwaysGetsData(200, '{"hello": "world"}');
+
+		$data = $this->object->ping();
+		$this->assertObjectHasAttribute('hello', $data);
+		$this->assertEquals('world', $data->hello);
+	}
+
+	/**
 	 * @covers Smite\API::request
 	 * @todo   Implement testSessionCreation().
 	 */
 	public function testSessionCreation() {
+		$this->markTestIncomplete('Move to RequestTest');
 		// api should retrieve new session key from createsession endpoint
 		// before issuing other requests
 
@@ -217,6 +229,7 @@ class APITest extends \PHPUnit_Framework_TestCase
 	 * @todo   Implement testApplyMaps().
 	 */
 	public function testApplyMaps() {
+		$this->markTestIncomplete('Move to RequestTest');
 		// should convert queue types to integers for applicable calls
 
 		// should convert ranking tiers to integers for applicable calls

@@ -38,10 +38,10 @@ $api->preferredLanguage('es');
 // (latin america becomes es-419)
 
 // get player info
-$playerData = $api->request('/getplayer', $playerName);
+$playerData = $api->getplayer($playerName);
 
 // get info on silver 3 ladder in season 4
-$ladderData = $api->request('/getleagueleaderboard', 'Conquest5v5', 'Silver3', 4);
+$ladderData = $api->getleagueleaderboard('Conquest5v5', 'Silver3', 4);
 ```
 
 ## Contributing
@@ -55,12 +55,11 @@ $ladderData = $api->request('/getleagueleaderboard', 'Conquest5v5', 'Silver3', 4
 
 ### Development Todo
 
-* Refactor request logic into separate, more testable request class
+* Write tests for Request and Session classes
 * Handle [networking exceptions](http://docs.guzzlephp.org/en/latest/quickstart.html#exceptions)
 * Provide optional caching behavior
   * Definitely cache session key
   * Maybe cache other api data responses?
-* Define a __call function on API to allow $api->getPlayer() or $api->getplayer()
 
 ## License
 
