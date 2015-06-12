@@ -96,21 +96,32 @@ class Request {
 		'Masters1' => 26,
 	];
 
-	/**
-	 * Get a UTC timestamp
-	 * @return string timestamp like 20120927183145
-	 */
-	private static function createTimestamp() {
-		$datetime = new \DateTime('Now', new \DateTimeZone('UTC'));
-		return $datetime->format('YmdHis');
-	}
-
 	/**** END STATIC STUFF ****/
 
+	/**
+	 * @var API
+	 */
 	private $api;
+
+	/**
+	 * @var string
+	 */
 	private $method;
+
+	/**
+	 * @var string
+	 */
 	private $url;
+
+	/**
+	 * @var DateTime
+	 */
 	private $timestamp;
+
+	/**
+	 * Individual components of the request url
+	 * @var string[]
+	 */
 	private $args = [];
 
 	/**
@@ -142,8 +153,8 @@ class Request {
 	}
 
 	/**
-	 * Returns the timestamp from the request signature
-	 * @return string
+	 * Returns the timestamp from the request signature as a DateTime object
+	 * @return DateTime
 	 */
 	public function getTimestamp() {
 		return $this->timestamp;
@@ -168,7 +179,7 @@ class Request {
 
 		// ping is only request that requires no args
 		if ($this->method != 'ping') {
-			$this->timestamp = self::createTimestamp();
+			$this->timestamp = new \DateTime('Now', new \DateTimeZone('UTC'));
 
 			// all requests need dev id and signature
 			$stdArgs = [$this->api->getDevId(), $this->createSignature()];
@@ -177,7 +188,7 @@ class Request {
 				$stdArgs[] = $this->api->getSession()->getKey();
 			}
 			// all requests need a timestamp
-			$stdArgs[] = $this->timestamp;
+			$stdArgs[] = $this->timestamp->format('YmdHis');
 			// add these standard args ahead of the user-provided args
 			$this->args = array_merge($stdArgs, $this->args);
 		}
@@ -199,15 +210,15 @@ class Request {
 			$this->api->getDevId()
 			.$this->method
 			.$this->api->getAuthKey()
-			.$this->timestamp
+			.$this->timestamp->format('YmdHis')
 		);
 	}
 
 	/**
 	 * Loop over a set of arguements and apply mapping values if they are either a queue or tier.
 	 *
-	 * @param array $arr 	arguements for the URL builder.
-	 * @return array $arr 	updated arguments where mappings have been applied.
+	 * @param array $arr    arguements for the URL builder.
+	 * @return array $arr   updated arguments where mappings have been applied.
 	 */
 	private function mapArgs() {
 		foreach ($this->args as $call) {

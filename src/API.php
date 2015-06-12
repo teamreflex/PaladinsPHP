@@ -93,7 +93,7 @@ class API {
 	 *
 	 * @param int $devId
 	 * @param string $authKey
-	 * @param Client $guzzle [optional]
+	 * @param GuzzleHttp\Client $guzzle [optional]
 	 * @throws InvalidArgumentException
 	 */
 	public function __construct ($devId, $authKey, Client $guzzle = null){
