@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "26840015554c3be6c952844ef7b1eb5b",
+    "hash": "e6d4c1b6a56c200939af4e48286ab6de",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -164,6 +164,51 @@
                 "stream"
             ],
             "time": "2014-10-12 19:18:40"
+        },
+        {
+            "name": "onoi/cache",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/onoi/cache.git",
+                "reference": "ecc999186aab7c8db411aedd892b2e5fe5a0b422"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/onoi/cache/zipball/ecc999186aab7c8db411aedd892b2e5fe5a0b422",
+                "reference": "ecc999186aab7c8db411aedd892b2e5fe5a0b422",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Onoi\\Cache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "mwjames",
+                    "homepage": "https://github.com/mwjames"
+                }
+            ],
+            "description": "A minimalistic cache adapter interface library",
+            "homepage": "https://github.com/onoi/cache",
+            "keywords": [
+                "cache"
+            ],
+            "time": "2015-06-02 08:52:45"
         },
         {
             "name": "react/promise",

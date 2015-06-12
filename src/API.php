@@ -2,6 +2,7 @@
 namespace Smite;
 
 use GuzzleHttp\Client;
+use Onoi\Cache\Cache;
 use InvalidArgumentException;
 
 class API {
@@ -46,10 +47,23 @@ class API {
 	private $authKey;
 
 	/**
+	 * How long a session with the API is valid. Default: 15 minutes.
+	 * Issue a request to getdataused to find out what your limits are.
+	 * @var int
+	 */
+	private $sessionTTL = 900;
+
+	/**
 	 * Guzzle Client
 	 * @var \GuzzleHttp\Client
 	 */
 	private $guzzleClient;
+
+	/**
+	 * Cache interface
+	 * @var \Onoi\Cache\Cache
+	 */
+	private $cache;
 
 	/**
 	 * Custom session from Smite API
@@ -79,6 +93,13 @@ class API {
 	 */
 	public function getGuzzleClient() {
 		return $this->guzzleClient;
+	}
+
+	/**
+	 * @return Onoi\Cache\Cache
+	 */
+	public function getCache() {
+		return $this->cache;
 	}
 
 	/**
@@ -117,12 +138,34 @@ class API {
 	 * Getter/setter for whether we return objects or assoc arrays
 	 *
 	 * @param string $format   optional
+	 * @return string
 	 */
 	public function preferredFormat($format = null) {
 		if (is_null($format)) {
 			return $this->returnArrays;
 		}
 		$this->returnArrays = strtolower($format) == 'array';
+	}
+
+	/**
+	 * Getter/setter for the API session TTL (in seconds)
+	 *
+	 * @param int $format   optional
+	 * @return int
+	 */
+	public function sessionTTL($ttl) {
+		if (empty($ttl)) {
+			return $this->sessonTTL;
+		}
+		$this->sessionTTL = (int)$ttl;
+	}
+
+	/**
+	 * Provide a cache object to use for saving and reusing API sessions
+	 * @param Onoi\Cache\Cache $cache
+	 */
+	public function useCache(Cache $cache) {
+		$this->cache = $cache;
 	}
 
 	/**

@@ -19,7 +19,9 @@ class Session {
 	 */
 	function __construct(API $api) {
 		$this->api = $api;
-		$this->createSession();
+		if (!$this->loadFromCache()) {
+			$this->createSession();
+		}
 	}
 
 	/**
@@ -28,7 +30,7 @@ class Session {
 	 * @return bool
 	 */
 	public function isExpired() {
-		return time() - $this->sessionTimestamp > 900;
+		return time() - $this->sessionTimestamp > $this->api->sessionTTL();
 	}
 
 	/**
@@ -46,6 +48,35 @@ class Session {
 	}
 
 	/**
+	 * Looks for and loads a valid session from the caching layer, if available
+	 * @return bool true if valid session was found
+	 */
+	private function loadFromCache() {
+		if (!$this->api->getCache()) {
+			return false;
+		}
+		$data = $this->api->getCache()->fetch('curse:smite:session');
+		if ($data) {
+			list($this->sessionKey, $this->sessionTimestamp) = unserialize($data);
+			return !$this->isExpired();
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Save the current session into the caching layer, if available
+	 */
+	private function saveToCache() {
+		if (!$this->api->getCache()) {
+			return;
+		}
+		$data = serialize([$this->sessionKey, $this->sessionTimestamp]);
+		// save for 15 minutes
+		$this->api->getCache()->save('curse:smite:sesssion', $data, $this->api->sessionTTL());
+	}
+
+	/**
 	 * Perform a create session call to the Smite API.
 	 */
 	private function createSession() {
@@ -56,5 +87,6 @@ class Session {
 			throw new ApiException('Bad session returned from API: "'.$body->ret_msg.'" via request: '.$request->getRequestedUrl());
 		}
 		$this->sessionTimestamp = (int)$request->getTimestamp()->format('U');
+		$this->saveToCache();
 	}
 }

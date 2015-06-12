@@ -9,7 +9,8 @@
 	},
 	"require": {
 		"php": ">=5.4.0",
-		"guzzlehttp/guzzle": "^5.3"
+		"guzzlehttp/guzzle": "^5.3",
+		"onoi/cache": "^1.2"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^4.6",
