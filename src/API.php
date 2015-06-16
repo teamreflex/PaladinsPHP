@@ -153,7 +153,7 @@ class API {
 	 * @param int $format   optional
 	 * @return int
 	 */
-	public function sessionTTL($ttl) {
+	public function sessionTTL($ttl = null) {
 		if (empty($ttl)) {
 			return $this->sessonTTL;
 		}
