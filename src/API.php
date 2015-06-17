@@ -155,7 +155,7 @@ class API {
 	 */
 	public function sessionTTL($ttl = null) {
 		if (empty($ttl)) {
-			return $this->sessonTTL;
+			return $this->sessionTTL;
 		}
 		$this->sessionTTL = (int)$ttl;
 	}
