@@ -3,6 +3,12 @@ namespace Smite;
 
 class Session {
 	/**
+	 * Change this to use a different key scheme for caching
+	 * @var string
+	 */
+	public static $cachingKey = 'curse:smite:session';
+
+	/**
 	 * Timestamp when session was created
 	 * @var string
 	 */
@@ -55,7 +61,7 @@ class Session {
 		if (!$this->api->getCache()) {
 			return false;
 		}
-		$data = $this->api->getCache()->fetch('curse:smite:session');
+		$data = $this->api->getCache()->fetch(self::$cachingKey);
 		if ($data) {
 			list($this->sessionKey, $this->sessionTimestamp) = unserialize($data);
 			return !$this->isExpired();
@@ -73,7 +79,7 @@ class Session {
 		}
 		$data = serialize([$this->sessionKey, $this->sessionTimestamp]);
 		// save for 15 minutes
-		$this->api->getCache()->save('curse:smite:sesssion', $data, $this->api->sessionTTL());
+		$this->api->getCache()->save(self::$cachingKey, $data, $this->api->sessionTTL());
 	}
 
 	/**
