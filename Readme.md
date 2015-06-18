@@ -21,7 +21,7 @@ $ composer require curse/smite-api
 
 ```php
 // Create api
-$api = new Smite\API(DEV_ID, AUTH_KEY);
+$api = new Curse\Smite\API(DEV_ID, AUTH_KEY);
 
 // optional session caching via many providers
 // see https://github.com/onoi/cache/
