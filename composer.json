@@ -5,7 +5,7 @@
 	"homepage": "https://github.com/CurseStaff/SmitePHP",
 	"license": "LGPLv3",
 	"autoload": {
-		"psr-4": {"Smite\\": "src/"}
+		"psr-4": {"Curse\\Smite\\": "src/"}
 	},
 	"require": {
 		"php": ">=5.4.0",
