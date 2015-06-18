@@ -1,7 +1,8 @@
-<phpunit colors="true">
+<phpunit colors="true" bootstrap="./tests/lib/bootstrap.php">
 	<testsuites>
 		<testsuite name="Smite API Test Suite">
 			<directory>./tests</directory>
+			<exclude>./tests/lib</exclude>
 		</testsuite>
 	</testsuites>
 </phpunit>
