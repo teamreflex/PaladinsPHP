@@ -142,6 +142,10 @@ class Request {
 	 */
 	function addArgs($args = []) {
 		$this->args = $args;
+		// Check to see if the method needs to have any data from the mapping variables.
+		if (in_array($this->method, self::$mapArgsForMethods)) {
+			$this->mapArgs();
+		}
 	}
 
 	/**
@@ -149,6 +153,9 @@ class Request {
 	 * @return string
 	 */
 	public function getRequestedUrl() {
+		if (empty($this->url)) {
+			$this->buildRequestUrl();
+		}
 		return $this->url;
 	}
 
@@ -217,18 +224,16 @@ class Request {
 	/**
 	 * Loop over a set of arguements and apply mapping values if they are either a queue or tier.
 	 *
-	 * @param array $arr    arguements for the URL builder.
-	 * @return array $arr   updated arguments where mappings have been applied.
+	 * @param array $arr    arguements for the URL builder
 	 */
 	private function mapArgs() {
-		foreach ($this->args as $call) {
-			if (array_key_exists($call, API::$queueMap)) {
+		foreach ($this->args as &$call) {
+			if (array_key_exists($call, self::$queueMap)) {
 				$call = self::$queueMap[$call];
-			} else if (array_key_exists($call, API::$tierMap)) {
+			} else if (array_key_exists($call, self::$tierMap)) {
 				$call = self::$tierMap[$call];
 			}
 		}
-		return $arr;
 	}
 
 	/**
@@ -236,11 +241,6 @@ class Request {
 	 * @throws Smite\ApiException
 	 */
 	public function send() {
-		// Check to see if the method needs to have any data from the mapping variables.
-		if (in_array($this->method, self::$mapArgsForMethods)) {
-			$this->mapArgs();
-		}
-
 		$this->buildRequestUrl();
 
 		try {

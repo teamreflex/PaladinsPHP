@@ -47,7 +47,7 @@ class Session {
 	}
 
 	/**
-	 * @return string
+	 * @return int
 	 */
 	public function getTimestamp() {
 		return $this->sessionTimestamp;
