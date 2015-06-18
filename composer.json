@@ -3,7 +3,15 @@
 	"type": "library",
 	"description": "Easy access to the Hi-Rez Studios API for Smite",
 	"homepage": "https://github.com/CurseStaff/SmitePHP",
+	"keywords": ["smite", "game", "hirez", "api", "esports"],
 	"license": "LGPLv3",
+	"authors": [
+		{
+			"name": "Noah Manneschmidt",
+			"email": "nmanneschmidt@curse.com",
+			"homepage": "https://noah.manneschmidt.net/"
+		}
+	],
 	"autoload": {
 		"psr-4": {"Curse\\Smite\\": "src/"}
 	},
