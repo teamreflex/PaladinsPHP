@@ -53,12 +53,6 @@ $ladderData = $api->getleagueleaderboard('Conquest5v5', 'Silver3', 4);
 5. Confirm (and write new) passing tests: `vendor/bin/phpunit`
 6. Submit pull request
 
-### Development Todo
-
-* Write tests for Request and Session classes
-* Provide optional caching behavior
-  * Maybe cache other api data responses?
-
 ## License
 
 Copyright 2015 Curse, Inc.
