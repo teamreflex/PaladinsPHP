@@ -10,6 +10,11 @@
 			"name": "Noah Manneschmidt",
 			"email": "nmanneschmidt@curse.com",
 			"homepage": "https://noah.manneschmidt.net/"
+		},
+		{
+			"name": "Tim Aldridge",
+			"email": "taldridge@curse.com",
+			"homepage": "https://www.telshin.com/"
 		}
 	],
 	"autoload": {
