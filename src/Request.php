@@ -59,13 +59,19 @@ class Request {
 		'ArenaChallenge' => 438,
 		'DominationChallenge' => 439,
 		'JoustLeague' => 440,
+		'JoustRanked' => 440,
 		'JoustChallenge' => 441,
 		'Assault' => 445,
 		'AssaultChallenge' => 446,
 		'Joust3v3' => 448,
+		'JoustRanked3v3' => 450,
 		'ConquestLeague' => 451,
+		'ConquestRanked' => 451,
 		'ArenaLeague' => 452,
+		'ArenaRanked' => 452,
 		'MOTD2' => 465,
+		'Clash' => 466,
+		'ClashChallenge' => 467,
 	];
 
 	/**
