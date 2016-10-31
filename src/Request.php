@@ -4,7 +4,7 @@
  * View the LICENSE file distributed with the source code
  * for copyright information and available license.
  */
-namespace Curse\Smite;
+namespace Reflex\Smite;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\TransferException;
@@ -212,7 +212,7 @@ class Request {
 		}
 
 		// base url for api endpoint, always json data
-		$url = self::$smiteAPIUrl . $this->method . 'json';
+		$url = $this->api->platform . $this->method . 'json';
 
 		// put the main URL at the beginning of our args
 		array_unshift($this->args, $url);

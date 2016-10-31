@@ -4,7 +4,7 @@
  * View the LICENSE file distributed with the source code
  * for copyright information and available license.
  */
-namespace Curse\Smite;
+namespace Reflex\Smite;
 
 use GuzzleHttp\Client;
 use Onoi\Cache\Cache;
@@ -50,6 +50,12 @@ class API {
 	 * @var string
 	 */
 	private $authKey;
+
+	/**
+	 * Platform URL to query.
+	 * @var string
+	 */
+	private $platform;
 
 	/**
 	 * How long a session with the API is valid. Default: 15 minutes.
@@ -122,7 +128,7 @@ class API {
 	 * @param GuzzleHttp\Client $guzzle [optional]
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct ($devId, $authKey, Client $guzzle = null){
+	public function __construct ($devId, $authKey, $platform, Client $guzzle = null){
 		if (!$devId) {
 			throw new InvalidArgumentException("You need to pass a Dev Id");
 		}
@@ -132,6 +138,7 @@ class API {
 
 		$this->devId = $devId;
 		$this->authKey = $authKey;
+		$this->platform = $platform;
 		if (is_null($guzzle)) {
 			$this->guzzleClient = new Client();
 		} else {

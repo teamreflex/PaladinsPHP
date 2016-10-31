@@ -4,7 +4,7 @@
  * View the LICENSE file distributed with the source code
  * for copyright information and available license.
  */
-namespace Curse\Smite;
+namespace Reflex\Smite;
 use Exception;
 
 class ApiException extends Exception {

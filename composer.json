@@ -1,5 +1,5 @@
 {
-	"name": "curse/smite-api",
+	"name": "team-reflex/smite-api",
 	"type": "library",
 	"description": "Easy access to the Hi-Rez Studios API for Smite",
 	"homepage": "https://github.com/CurseStaff/SmitePHP",
@@ -18,7 +18,7 @@
 		}
 	],
 	"autoload": {
-		"psr-4": {"Curse\\Smite\\": "src/"}
+		"psr-4": {"Reflex\\Smite\\": "src/"}
 	},
 	"require": {
 		"php": ">=5.4.0",
