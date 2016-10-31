@@ -14,14 +14,14 @@ For more information about the Smite API, refer to the [official API documentati
 ## Installation
 
 ```
-$ composer require curse/smite-api
+$ composer require team-reflex/smite-api
 ```
 
 ## Usage
 
 ```php
 // Create api
-$api = new Curse\Smite\API(DEV_ID, AUTH_KEY);
+$api = new Reflex\Smite\API(DEV_ID, AUTH_KEY);
 
 // optional session caching via many providers
 // see https://github.com/onoi/cache/
