@@ -128,6 +128,13 @@ class API {
 	}
 
 	/**
+	 * @param string
+	 */
+	public function setPlatform($platform) {
+		$this->platform = $platform;
+	}
+
+	/**
 	 * Main Constructor for Smite API Class
 	 *
 	 * @param int $devId
