@@ -121,6 +121,13 @@ class API {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getPlatform() {
+		return $this->platform;
+	}
+
+	/**
 	 * Main Constructor for Smite API Class
 	 *
 	 * @param int $devId

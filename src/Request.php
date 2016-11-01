@@ -212,7 +212,7 @@ class Request {
 		}
 
 		// base url for api endpoint, always json data
-		$url = $this->api->platform . $this->method . 'json';
+		$url = $this->api->getPlatform . $this->method . 'json';
 
 		// put the main URL at the beginning of our args
 		array_unshift($this->args, $url);
