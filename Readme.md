@@ -1,10 +1,8 @@
-# SmitePHP
+# PaladinsPHP
 
-A simple object-oriented approach to data in the Smite API (a game from Hi-Rez Studios).
+A simple object-oriented approach to data in the Paladins API (a game from Hi-Rez Studios).
 
-For use within WordPress, consider using the [official WP plugin from Hi-Rez](https://github.com/hirezstudios/smite-api-wp).
-
-For more information about the Smite API, refer to the [official API documentation](https://docs.google.com/document/d/1OFS-3ocSx-1Rvg4afAnEHlT3917MAK_6eJTR6rzr-BM/).
+For more information about the Paladins API, refer to the [official API documentation](https://docs.google.com/document/d/1OFS-3ocSx-1Rvg4afAnEHlT3917MAK_6eJTR6rzr-BM/).
 
 ## Requirements
 
@@ -14,14 +12,14 @@ For more information about the Smite API, refer to the [official API documentati
 ## Installation
 
 ```
-$ composer require team-reflex/smite-api
+$ composer require team-reflex/paladins-api
 ```
 
 ## Usage
 
 ```php
 // Create api
-$api = new Reflex\Smite\API(DEV_ID, AUTH_KEY);
+$api = new Reflex\Paladins\API(DEV_ID, AUTH_KEY);
 
 // optional session caching via many providers
 // see https://github.com/onoi/cache/

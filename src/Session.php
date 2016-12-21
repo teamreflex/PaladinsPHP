@@ -4,14 +4,14 @@
  * View the LICENSE file distributed with the source code
  * for copyright information and available license.
  */
-namespace Reflex\Smite;
+namespace Reflex\Paladins;
 
 class Session {
 	/**
 	 * Change this to use a different key scheme for caching
 	 * @var string
 	 */
-	public static $cachingKey = 'curse:smite:session';
+	public static $cachingKey = 'curse:paladins:session';
 
 	/**
 	 * Timestamp when session was created
@@ -88,7 +88,7 @@ class Session {
 	}
 
 	/**
-	 * Perform a create session call to the Smite API.
+	 * Perform a create session call to the Paladins API.
 	 */
 	private function createSession() {
 		$request = new Request($this->api, 'createsession');

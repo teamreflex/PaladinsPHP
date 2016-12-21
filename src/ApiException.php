@@ -4,7 +4,7 @@
  * View the LICENSE file distributed with the source code
  * for copyright information and available license.
  */
-namespace Reflex\Smite;
+namespace Reflex\Paladins;
 use Exception;
 
 class ApiException extends Exception {

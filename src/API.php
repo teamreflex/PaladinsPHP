@@ -4,7 +4,7 @@
  * View the LICENSE file distributed with the source code
  * for copyright information and available license.
  */
-namespace Reflex\Smite;
+namespace Reflex\Paladins;
 
 use GuzzleHttp\Client;
 use Onoi\Cache\Cache;
@@ -12,7 +12,7 @@ use InvalidArgumentException;
 
 class API {
 	/**
-	 * IETF language codes for smite's internal language codes
+	 * IETF language codes for Paladins's internal language codes
 	 * @var array
 	 */
 	private static $languageCodeMap = [
@@ -40,13 +40,13 @@ class API {
 	private $languageCode = 1;
 
 	/**
-	 * Dev Id from Smite API
+	 * Dev Id from Paladins API
 	 * @var int
 	 */
 	private $devId;
 
 	/**
-	 * Auth Key from Smite API
+	 * Auth Key from Paladins API
 	 * @var string
 	 */
 	private $authKey;
@@ -77,7 +77,7 @@ class API {
 	private $cache;
 
 	/**
-	 * Custom session from Smite API
+	 * Custom session from Paladins API
 	 * @var Session
 	 */
 	private $session;
@@ -135,7 +135,7 @@ class API {
 	}
 
 	/**
-	 * Main Constructor for Smite API Class
+	 * Main Constructor for Paladins API Class
 	 *
 	 * @param int $devId
 	 * @param string $authKey
@@ -211,11 +211,11 @@ class API {
 	}
 
 	/**
-	 * Make a request to the Smite API
+	 * Make a request to the Paladins API
 	 *
-	 * @param string $method    name of Smite api endpoint with or without leading slash
-	 * @param mixed $param1,... optional additional params in order as needed by the Smite API
-	 * @throws ApiException when Smite API returns a non-200 response
+	 * @param string $method    name of Paladins api endpoint with or without leading slash
+	 * @param mixed $param1,... optional additional params in order as needed by the Paladins API
+	 * @throws ApiException when Paladins API returns a non-200 response
 	 */
 	public function request($method) {
 		$request = new Request($this, $method);
@@ -234,13 +234,13 @@ class API {
 	}
 
 	/**
-	 * Make a request to the Smite API
+	 * Make a request to the Paladins API
 	 * allows calling $api->getplayer($playername)
 	 * instead of $api->request('getplayer', $playername)
 	 *
 	 * @param string $method name of method that was called
-	 * @param array $params  optional params, in order as needed by the Smite API
-	 * @throws ApiException  when Smite API returns a non-200 response
+	 * @param array $params  optional params, in order as needed by the Paladins API
+	 * @throws ApiException  when Paladins API returns a non-200 response
 	 */
 	public function __call($method, $params) {
 		// push method onto args as first

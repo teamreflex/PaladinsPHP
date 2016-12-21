@@ -4,22 +4,22 @@
  * View the LICENSE file distributed with the source code
  * for copyright information and available license.
  */
-namespace Reflex\Smite;
+namespace Reflex\Paladins;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\TransferException;
 
 /**
- * Class to manage individual requests to the Smite API
+ * Class to manage individual requests to the Paladins API
  */
 class Request {
 	/**** STATIC STUFF ****/
 
 	/**
-	 * Smite API URL
+	 * Paladins API URL
 	 * @var string
 	 */
-	private static $smiteAPIUrl = 'http://api.smitegame.com/smiteapi.svc/';
+	private static $smiteAPIUrl = 'http://api.paladins.com/paladinsapi.svc/';
 
 	/**
 	 * List of methods that need a language code appended
@@ -43,7 +43,7 @@ class Request {
 	];
 
 	/**
-	 * String mapping for Smite queue types
+	 * String mapping for Paladins queue types
 	 * @var array
 	 */
 	private static $queueMap = [
@@ -75,7 +75,7 @@ class Request {
 	];
 
 	/**
-	 * String mapping for ranked tiers to Smite's internal tier ID
+	 * String mapping for ranked tiers to Paladins' internal tier ID
 	 * @var array
 	 */
 	private static $tierMap = [
@@ -137,7 +137,7 @@ class Request {
 
 	/**
 	 * @param API    $api       API object containing dev ID, auth key, etc
-	 * @param string $method    name of Smite api endpoint with or without leading slash
+	 * @param string $method    name of Paladins api endpoint with or without leading slash
 	 */
 	function __construct(API $api, $method) {
 		$this->api = $api;
@@ -220,7 +220,7 @@ class Request {
 	}
 
 	/**
-	 * Create unique signature key required by the Smite API
+	 * Create unique signature key required by the Paladins API
 	 * @return  string
 	 */
 	private function createSignature() {
@@ -249,7 +249,7 @@ class Request {
 
 	/**
 	 * Sends the request to the remote
-	 * @throws Smite\ApiException
+	 * @throws Paladins\ApiException
 	 */
 	public function send() {
 		$this->buildRequestUrl();
@@ -262,7 +262,7 @@ class Request {
 		if ($result->getStatusCode() != 200) {
 			$respCode = $result->getStatusCode();
 			$respBody = $result->getBody();
-			throw new ApiException("Smite API returned $respCode: ".$respBody);
+			throw new ApiException("Paladins API returned $respCode: ".$respBody);
 		}
 		return json_decode($result->getBody(), $this->api->preferredFormat());
 	}
