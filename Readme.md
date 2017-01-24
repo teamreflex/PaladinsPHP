@@ -43,6 +43,10 @@ $playerData = $api->getplayer($playerName);
 $ladderData = $api->getleagueleaderboard('Conquest5v5', 'Silver3', 4);
 ```
 
+## Laravel Cache
+
+We have an Illuminate driver for onoi/cache found here: https://github.com/teamreflex/Onoi-Illuminate
+
 ## Contributing
 
 1. Fork
