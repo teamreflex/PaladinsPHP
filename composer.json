@@ -22,7 +22,7 @@
 	},
 	"require": {
 		"php": ">=5.4.0",
-		"guzzlehttp/guzzle": "^6.1",
+		"guzzlehttp/guzzle": "^6.1|^6.2",
 		"onoi/cache": "^1.2"
 	},
 	"require-dev": {
