@@ -8,6 +8,9 @@ namespace Reflex\Paladins;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\TransferException;
+use Reflex\Paladins\Exceptions\AccessValidationException;
+use Reflex\Paladins\Exceptions\NotFoundException;
+use Reflex\Paladins\Exceptions\RateLimitException;
 
 /**
  * Class to manage individual requests to the Paladins API
@@ -257,7 +260,17 @@ class Request {
 		try {
 			$result = $this->api->getGuzzleClient()->get($this->url);
 		} catch (TransferException $e) {
-			throw new ApiException($e->getMessage(), $e->getCode(), $e);
+		    $message = $e->getMessage();
+
+            if (strpos($message, 'dailylimit') !== false) {
+                throw new RateLimitException($message, $e->getCode(), $e);
+            } elseif (strpos($message, 'Exception while validating developer access') !== false) {
+                throw new AccessValidationException($message, $e->getCode(), $e);
+            } elseif (strpos($message, '404 Not Found') !== false) {
+                throw new NotFoundException($message, $e->getCode(), $e);
+            } else {
+                throw new ApiException($message, $e->getCode(), $e);
+            }
 		}
 		if ($result->getStatusCode() != 200) {
 			$respCode = $result->getStatusCode();
