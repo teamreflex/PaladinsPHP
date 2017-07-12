@@ -30,6 +30,7 @@ class Session {
 	 */
 	function __construct(API $api) {
 		$this->api = $api;
+		self::$cachingKey = self::$cachingKey . ':' . md5($api->getPlatform());
 		if (!$this->loadFromCache()) {
 			$this->createSession();
 		}
