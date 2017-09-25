@@ -8,10 +8,9 @@ namespace Reflex\Paladins;
 
 class Session {
 	/**
-	 * Change this to use a different key scheme for caching
 	 * @var string
 	 */
-	public static $cachingKey = 'curse:paladins:session';
+	public $cacheKey;
 
 	/**
 	 * Timestamp when session was created
@@ -28,9 +27,9 @@ class Session {
 	/**
 	 * @param API $api
 	 */
-	function __construct(API $api) {
+	function __construct(API $api, $cacheKey) {
 		$this->api = $api;
-		self::$cachingKey = self::$cachingKey . ':' . md5($api->getPlatform());
+		$this->cacheKey = $cacheKey . ':' . md5($api->getPlatform());
 		if (!$this->loadFromCache()) {
 			$this->createSession();
 		}
@@ -67,7 +66,7 @@ class Session {
 		if (!$this->api->getCache()) {
 			return false;
 		}
-		$data = $this->api->getCache()->fetch(self::$cachingKey);
+		$data = $this->api->getCache()->fetch($this->cacheKey);
 		if ($data) {
 			list($this->sessionKey, $this->sessionTimestamp) = unserialize($data);
 			return !$this->isExpired();
@@ -85,7 +84,7 @@ class Session {
 		}
 		$data = serialize([$this->sessionKey, $this->sessionTimestamp]);
 		// save for 15 minutes
-		$this->api->getCache()->save(self::$cachingKey, $data, $this->api->sessionTTL());
+		$this->api->getCache()->save($this->cacheKey, $data, $this->api->sessionTTL());
 	}
 
 	/**

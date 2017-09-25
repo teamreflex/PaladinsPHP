@@ -83,6 +83,12 @@ class API {
 	private $session;
 
 	/**
+     * Key used to cache the session.
+     * @var string
+     */
+	private $cacheKey = "reflex:paladins:session";
+
+	/**
 	 * Getter method for Dev Id
 	 * @return int
 	 */
@@ -112,6 +118,13 @@ class API {
 	public function getCache() {
 		return $this->cache;
 	}
+
+	/**
+     * @return string
+     */
+    public function getCacheKey() {
+        return $this->cacheKey;
+    }
 
 	/**
 	 * @return Session
@@ -222,7 +235,7 @@ class API {
 
 		// check validity of session and create if needed
 		if ($request->requiresSession() && (!$this->session || $this->session->isExpired())) {
-			$this->session = new Session($this);
+			$this->session = new Session($this, $this->getCacheKey());
 		}
 
 		// get all extra args
