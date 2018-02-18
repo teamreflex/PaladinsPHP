@@ -4,7 +4,7 @@
 	"description": "Easy access to the Hi-Rez Studios API for Paladins",
 	"homepage": "https://github.com/teamreflex/PaladinsPHP",
 	"keywords": ["paladins", "game", "hirez", "api", "esports"],
-	"license": "LGPLv3",
+	"license": "LGPL-3.0-or-later",
 	"authors": [
 		{
 			"name": "Noah Manneschmidt",
