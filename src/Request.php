@@ -282,4 +282,16 @@ class Request {
 		}
 		return json_decode($result->getBody(), $this->api->preferredFormat());
 	}
+
+    /**
+     * @return object
+     * @throws AccessValidationException
+     * @throws ApiException
+     * @throws NotFoundException
+     * @throws RateLimitException
+     */
+    public function sendForSession()
+    {
+        return (object)$this->send();
+    }
 }

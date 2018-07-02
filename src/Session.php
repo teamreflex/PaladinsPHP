@@ -92,7 +92,7 @@ class Session {
 	 */
 	private function createSession() {
 		$request = new Request($this->api, 'createsession');
-		$body = $request->send();
+		$body = $request->sendForSession();
 		$this->sessionKey = $body->session_id;
 		if (empty($this->sessionKey)) {
 			throw new ApiException('Bad session returned from API: "'.$body->ret_msg.'" via request: '.$request->getRequestedUrl());
